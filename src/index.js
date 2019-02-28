@@ -11,9 +11,9 @@ function getAllDogs() {
     .then(resp => resp.json())
     .then(dogs => dogs.forEach(dog => {
       const tableBody = document.getElementById('table-body')
-      // tableBody.innerHTML = ""
       tableBody.innerHTML += createDogEntry(dog)
       tableBody.addEventListener("click", handleEditDog)
+      tableBody.addEventListener("click", handleDeleteDog)
     }))
 }
 
@@ -39,6 +39,18 @@ function patchDog(dogId, newDogInfo) {
     })
 }
 
+function deleteDog(dogId) {
+  fetch(`${dogURL}/${dogId}`, {
+    method: 'DELETE'
+  })
+    .then(resp => resp.json())
+    .then(json => {
+      const tableBody = document.getElementById('table-body')
+      tableBody.innerHTML = ""
+      getAllDogs()
+    })
+}
+
 function createDogEntry(dog) {
   return `
     <tr>
@@ -46,6 +58,7 @@ function createDogEntry(dog) {
       <td id="dog-breed">${dog.breed}</td>
       <td id="dog-sex">${dog.sex}</td>
       <td><button id="edit-dog" data-id=${dog.id}>Edit Dog</button></td>
+      <td><button id="delete-dog" data-id=${dog.id}>Delete Dog</button></td>
     </tr>
   `
 }
@@ -70,7 +83,6 @@ function handleEditDog(event) {
   }
 }
 
-
 function handleSubmitEdit(event) {
   event.preventDefault()
 
@@ -90,3 +102,23 @@ function handleSubmitEdit(event) {
   patchDog(dogId, newDogInfo)
   dogForm.reset()
 }
+
+
+function handleDeleteDog(event) {
+  if(event.target.id === "delete-dog") {
+    const dogId = event.target.dataset.id
+    deleteDog(dogId)
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+//

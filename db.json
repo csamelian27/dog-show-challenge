@@ -1,66 +1,6 @@
 {
   "dogs": [
     {
-      "id": 1,
-      "name": "test1",
-      "breed": "Scottish Deerhound",
-      "sex": "male"
-    },
-    {
-      "id": 2,
-      "name": "tester",
-      "breed": "Rhodesian Ridgeback",
-      "sex": "fem"
-    },
-    {
-      "id": 3,
-      "name": "Snickers",
-      "breed": "Dachshund",
-      "sex": "female"
-    },
-    {
-      "id": 4,
-      "name": "Harvey",
-      "breed": "Irish Spaniel",
-      "sex": "male"
-    },
-    {
-      "id": 5,
-      "name": "Gracie",
-      "breed": "Miniature Pinschaf",
-      "sex": "female"
-    },
-    {
-      "id": 6,
-      "name": "Oreo",
-      "breed": "English Springer",
-      "sex": "male"
-    },
-    {
-      "id": 7,
-      "name": "Diam",
-      "breed": "Lab",
-      "sex": "fem"
-    },
-    {
-      "id": 8,
-      "name": "Chloe",
-      "breed": "Dandie Terrier",
-      "sex": "male"
-    },
-    {
-      "id": 9,
-      "name": "Shelby",
-      "breed": "Kuvasz",
-      "sex": "male"
-    },
-    {
-      "id": 10,
-      "name": "Patches",
-      "breed": "Dingo",
-      "sex": "male"
-    },
-    {
       "id": 11,
       "name": "Jasper",
       "breed": "Redbone",
