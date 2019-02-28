@@ -4,22 +4,41 @@ document.addEventListener('DOMContentLoaded', () => {
   getAllDogs()
   const editForm = document.getElementById('dog-form')
   editForm.addEventListener("submit", handleSubmitEdit)
+
+  const newForm = document.getElementById('new-dog-form')
+  newForm.addEventListener("submit", handleAddDog)
 })
 
 function getAllDogs() {
   fetch(dogURL)
     .then(resp => resp.json())
-    .then(dogs => dogs.forEach(dog => {
+    .then(dogs => {
       const tableBody = document.getElementById('table-body')
+      tableBody.innerHTML = ""
+      dogs.forEach(dog => {
       tableBody.innerHTML += createDogEntry(dog)
       tableBody.addEventListener("click", handleEditDog)
       tableBody.addEventListener("click", handleDeleteDog)
-    }))
+    })
+  })
 }
 
 function getOneDog(dogId) {
   return fetch(`${dogURL}/${dogId}`)
     .then(resp => resp.json())
+}
+
+function postNewDog(dogData) {
+  fetch(dogURL, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'Accept': 'application/json'
+    },
+    body: JSON.stringify(dogData)
+  })
+    .then(resp => resp.json())
+    .then(json => getAllDogs())
 }
 
 function patchDog(dogId, newDogInfo) {
@@ -32,11 +51,7 @@ function patchDog(dogId, newDogInfo) {
     body: JSON.stringify(newDogInfo)
   })
     .then(resp => resp.json())
-    .then(dog => {
-      const tableBody = document.getElementById('table-body')
-      tableBody.innerHTML = ""
-      getAllDogs()
-    })
+    .then(dog => getAllDogs())
 }
 
 function deleteDog(dogId) {
@@ -44,11 +59,7 @@ function deleteDog(dogId) {
     method: 'DELETE'
   })
     .then(resp => resp.json())
-    .then(json => {
-      const tableBody = document.getElementById('table-body')
-      tableBody.innerHTML = ""
-      getAllDogs()
-    })
+    .then(json => getAllDogs())
 }
 
 function createDogEntry(dog) {
@@ -111,9 +122,24 @@ function handleDeleteDog(event) {
   }
 }
 
+function handleAddDog(event) {
+  event.preventDefault()
 
+  const newForm = document.querySelector('#new-dog-form')
 
+  const dogName = document.querySelector('input[name="newName"]').value
+  const dogBreed = document.querySelector('input[name="newBreed"]').value
+  const dogSex = document.querySelector('input[name="newSex"]').value
 
+  const dogData = {
+    name: dogName,
+    breed: dogBreed,
+    sex: dogSex
+  }
+
+  postNewDog(dogData)
+  newForm.reset()
+}
 
 
 
